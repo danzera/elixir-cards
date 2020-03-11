@@ -66,4 +66,20 @@ defmodule Cards do
 		end
 	end # load/1 end
 	
+	def create_hand(num_cards) do
+		# verbose way of running methods consecutively
+		# deck = Cards.create_deck
+		# deck = Cards.shuffle(deck)
+		# { hand, _remaining_deck } = Cards.deal(deck, num_cards)
+
+		# less verbose code using the pipe operator
+		{ hand, _remaining_deck } = 
+			Cards.create_deck
+			|> Cards.shuffle
+			|> Cards.deal(num_cards) # Elixir automatically injects the shuffled deck as the first arg to the deal function
+
+		# return
+		hand
+	end
+
 end
