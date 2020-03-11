@@ -23,39 +23,47 @@ defmodule Cards do
 		end
 
 		deck
-	end
+	end # create_deck end
 	
 	def shuffle(deck) do
 		Enum.shuffle(deck)
-	end
+	end # shuffle/1 end
 
 	def contains?(deck, card) do
 		
 		# Enum.find_value(deck, fn x -> x == card end)
 		# ^ Similar achievement to using Enum.member, but return nil instead of false
 		Enum.member?(deck, card)
-	end
+	end # contains/2 end
 
 	def deal(deck, num_cards) do
 		# will return a Tuple { [hand], [remaining_deck] }
 		Enum.split(deck, num_cards)
-	end
+	end # deal/2 end
 
 	def save(deck, filename) do
 		# Elixir sits on top of Erlang, so Erlang code can be freely called as well
 		# Erlang code invoked by using the Atom (constant) :erlang which has many built in methods
 		binary = :erlang.term_to_binary(deck)
 		File.write(filename, binary)
-	end
+	end # save/2 end
 
 	def load(filename) do
-		{ status, binary } = File.read(filename) # will throw argument error if filename doesn't correspond to an existing file
 
+		# tuple variable assignment
+		# { status, binary } = File.read(filename) # will throw argument error if filename doesn't correspond to an existing file
 		# catch any errors using a case statement
-		case status do
-			:ok -> :erlang.binary_to_term binary
-			:error -> "Ah, ah, ah, you didn't say the magic word."
+		# case status do
+			# :ok -> :erlang.binary_to_term binary
+			# :error -> "Ah, ah, ah. You didn't say the magic word."
+		# end
+
+		# above code can be condensed to the following by doing case comparison and variable assignment together
+		case File.read(filename) do
+			{ :ok, binary } -> :erlang.binary_to_term binary
+			# Prepend unused variables with an underscore => the variable name must be there for the sake of pattern matching or an error would be thrown when this case is hit
+			{ :error, _err } -> "Ah, ah, ah. You didn't say the magic word."
 		end
-		
-	end
+	end # load/1 end
+	
 end
