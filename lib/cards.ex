@@ -1,10 +1,10 @@
 defmodule Cards do
-  @moduledoc """
-  	A collection of methods for creating and using a deck of cards.
+	@moduledoc """
+	A collection of methods for creating and using a deck of cards.
 	"""
 	
 	@doc """
-		Returns a list of strings representing a deck of playing cards.
+	Returns a list of strings representing a deck of playing cards.
 	"""
 	def create_deck do
 		suits = ["S", "C", "H", "D"]
@@ -20,14 +20,15 @@ defmodule Cards do
 	end # create_deck end
 	
 	@doc """
-		Returns the given `deck` of cards (list), shuffled.
+	Returns the given `deck` of cards (list), shuffled.
 	"""
 	def shuffle(deck) do
 		Enum.shuffle(deck)
 	end # shuffle/1 end
 
 	@doc """
-		Indicates whether or not the given `deck` of cards (list) contains the given `card` (string).
+	Indicates whether or not the given `deck` of cards (list)
+	contains the given `card` (string).
 	"""
 	def contains?(deck, card) do
 		
@@ -37,9 +38,15 @@ defmodule Cards do
 	end # contains/2 end
 
 	@doc """
-		Splits the given `deck` of cards (list) into two separate lists, and returns a tuple containing both lists.
-		The first list in the tuple is the hand of the given number of cards, `num_cards`.
-		The second list in the tuple is the remaining cards from the given `deck`.
+	Splits the given `deck` of cards (list) into two separate lists, and returns a tuple containing both lists.
+	The first list in the tuple is the hand of the given number of cards, `num_cards`.
+	The second list in the tuple is the remaining cards from the given `deck`.
+
+	## Examples
+			iex> deck = Cards.create_deck
+			iex> { hand, deck } = Cards.deal(deck, 1)
+			iex> hand
+			["A-S"] (ace of spades)
 	"""
 	def deal(deck, num_cards) do
 		# will return a Tuple { [hand], [remaining_deck] }
@@ -47,7 +54,7 @@ defmodule Cards do
 	end # deal/2 end
 
 	@doc """
-		Saves the given `deck` of cards to the given `filename`.
+	Saves the given `deck` of cards to the given `filename`.
 	"""
 	def save(deck, filename) do
 		# Elixir sits on top of Erlang, so Erlang code can be freely called as well
@@ -57,7 +64,7 @@ defmodule Cards do
 	end # save/2 end
 
 	@doc """
-		Attempts to load the given `filename`.
+	Attempts to load the given `filename`.
 	"""
 	def load(filename) do
 
@@ -78,11 +85,12 @@ defmodule Cards do
 	end # load/1 end
 	
 	@doc """
-		Performs three actions in succession:
-			1. Creates a new deck of cards.
-			2. Shuffles the deck.
-			3. Deals a hand of the given number of cards (splits the deck in two).
-		Returns a tuple containing the hand of the given size and the remaining cards from the deck that was created/shuffled.
+	Performs three actions in succession:
+	1. Creates a new deck of cards.
+	2. Shuffles the deck.
+	3. Deals a hand of the given number of cards (splits the deck in two).
+	
+	Returns a tuple containing the hand of the given size and the remaining cards from the deck that was created/shuffled.
 	"""
 	def create_hand(num_cards) do
 		# verbose way of running methods consecutively
