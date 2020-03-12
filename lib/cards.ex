@@ -1,17 +1,11 @@
 defmodule Cards do
   @moduledoc """
-  Documentation for Cards.
-  """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Cards.hello()
-      :world
-
-  """
+  	A collection of methods for creating and using a deck of cards.
+	"""
+	
+	@doc """
+		Returns a list of strings representing a deck of playing cards.
+	"""
 	def create_deck do
 		suits = ["S", "C", "H", "D"]
 		values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
@@ -25,10 +19,16 @@ defmodule Cards do
 		deck
 	end # create_deck end
 	
+	@doc """
+		Returns the given `deck` of cards (list), shuffled.
+	"""
 	def shuffle(deck) do
 		Enum.shuffle(deck)
 	end # shuffle/1 end
 
+	@doc """
+		Indicates whether or not the given `deck` of cards (list) contains the given `card` (string).
+	"""
 	def contains?(deck, card) do
 		
 		# Enum.find_value(deck, fn x -> x == card end)
@@ -36,11 +36,19 @@ defmodule Cards do
 		Enum.member?(deck, card)
 	end # contains/2 end
 
+	@doc """
+		Splits the given `deck` of cards (list) into two separate lists, and returns a tuple containing both lists.
+		The first list in the tuple is the hand of the given number of cards, `num_cards`.
+		The second list in the tuple is the remaining cards from the given `deck`.
+	"""
 	def deal(deck, num_cards) do
 		# will return a Tuple { [hand], [remaining_deck] }
 		Enum.split(deck, num_cards)
 	end # deal/2 end
 
+	@doc """
+		Saves the given `deck` of cards to the given `filename`.
+	"""
 	def save(deck, filename) do
 		# Elixir sits on top of Erlang, so Erlang code can be freely called as well
 		# Erlang code invoked by using the Atom (constant) :erlang which has many built in methods
@@ -48,6 +56,9 @@ defmodule Cards do
 		File.write(filename, binary)
 	end # save/2 end
 
+	@doc """
+		Attempts to load the given `filename`.
+	"""
 	def load(filename) do
 
 		# tuple variable assignment
@@ -66,6 +77,13 @@ defmodule Cards do
 		end
 	end # load/1 end
 	
+	@doc """
+		Performs three actions in succession:
+			1. Creates a new deck of cards.
+			2. Shuffles the deck.
+			3. Deals a hand of the given number of cards (splits the deck in two).
+		Returns a tuple containing the hand of the given size and the remaining cards from the deck that was created/shuffled.
+	"""
 	def create_hand(num_cards) do
 		# verbose way of running methods consecutively
 		# deck = Cards.create_deck

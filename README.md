@@ -1,6 +1,6 @@
 # Cards
 
-**TODO: Add description**
+A module for creating and using a deck of playing cards.
 
 ## Installation
 
