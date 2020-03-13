@@ -6,7 +6,7 @@ defmodule Cards do
 	@doc """
 	Returns a list of strings representing a deck of playing cards.
 	"""
-	def create_deck do
+	def create_deck do # TESTS IN cards_test.exs
 		suits = ["S", "C", "H", "D"]
 		values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 	
@@ -22,15 +22,24 @@ defmodule Cards do
 	@doc """
 	Returns the given `deck` of cards (list), shuffled.
 	"""
-	def shuffle(deck) do
+	def shuffle(deck) do # TESTS IN cards_test.exs
 		Enum.shuffle(deck)
 	end # shuffle/1 end
 
 	@doc """
 	Indicates whether or not the given `deck` of cards (list)
 	contains the given `card` (string).
+
+	## Examples
+			iex> deck = Cards.create_deck
+			iex> card = "4-D"
+			iex> Cards.contains?(deck, card)
+			true
+
+			iex> Cards.contains?(Cards.create_deck, "4-Q")
+			false
 	"""
-	def contains?(deck, card) do
+	def contains?(deck, card) do # tested via doc testing using the above examples
 		
 		# Enum.find_value(deck, fn x -> x == card end)
 		# ^ Similar achievement to using Enum.member, but return nil instead of false
@@ -44,11 +53,11 @@ defmodule Cards do
 
 	## Examples
 			iex> deck = Cards.create_deck
-			iex> { hand, deck } = Cards.deal(deck, 1)
+			iex> { hand, _deck } = Cards.deal(deck, 1)
 			iex> hand
-			["A-S"] (ace of spades)
+			["A-S"] # (ace of spades)
 	"""
-	def deal(deck, num_cards) do
+	def deal(deck, num_cards) do # TESTS IN cards_test.exs
 		# will return a Tuple { [hand], [remaining_deck] }
 		Enum.split(deck, num_cards)
 	end # deal/2 end
@@ -56,7 +65,7 @@ defmodule Cards do
 	@doc """
 	Saves the given `deck` of cards to the given `filename`.
 	"""
-	def save(deck, filename) do
+	def save(deck, filename) do # TESTS IN cards_test.exs
 		# Elixir sits on top of Erlang, so Erlang code can be freely called as well
 		# Erlang code invoked by using the Atom (constant) :erlang which has many built in methods
 		binary = :erlang.term_to_binary(deck)
@@ -66,7 +75,7 @@ defmodule Cards do
 	@doc """
 	Attempts to load the given `filename`.
 	"""
-	def load(filename) do
+	def load(filename) do # TESTS IN cards_test.exs
 
 		# tuple variable assignment
 		# { status, binary } = File.read(filename) # will throw argument error if filename doesn't correspond to an existing file
@@ -92,7 +101,7 @@ defmodule Cards do
 	
 	Returns a tuple containing the hand of the given size and the remaining cards from the deck that was created/shuffled.
 	"""
-	def create_hand(num_cards) do
+	def create_hand(num_cards) do # TESTS IN cards_test.exs
 		# verbose way of running methods consecutively
 		# deck = Cards.create_deck
 		# deck = Cards.shuffle(deck)
